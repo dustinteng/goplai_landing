@@ -1,9 +1,13 @@
 "use client";
 
-import { motion } from "framer-motion";
+import React from "react";
+import { motion, HTMLMotionProps } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { Instagram, Twitter, MessageCircle } from "lucide-react";
 import Image from "next/image";
+
+// Create a typed MotionDiv so it accepts all standard div props like className
+const MotionDiv: React.FC<HTMLMotionProps<"div">> = motion.div;
 
 export default function Footer() {
   const [ref, inView] = useInView({
@@ -28,10 +32,10 @@ export default function Footer() {
           strokeLinecap="round"
           strokeLinejoin="round"
         >
-          <path d="M9 12a4 4 0 1 0 0 8 4 4 0 0 0 0-8z"></path>
-          <path d="M15 8a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"></path>
-          <path d="M15 8v8a4 4 0 0 1-4 4"></path>
-          <line x1="15" y1="4" x2="15" y2="12"></line>
+          <path d="M9 12a4 4 0 1 0 0 8 4 4 0 0 0 0-8z" />
+          <path d="M15 8a4 4 0 1 0 0-8 4 4 0 0 0 0 8z" />
+          <path d="M15 8v8a4 4 0 0 1-4 4" />
+          <line x1="15" y1="4" x2="15" y2="12" />
         </svg>
       ),
       href: "#",
@@ -41,8 +45,8 @@ export default function Footer() {
   return (
     <footer className="w-full py-12 bg-gray-900 text-white">
       <div className="container mx-auto px-4">
-        <motion.div
-          ref={ref}
+        <MotionDiv
+          ref={ref as React.Ref<HTMLDivElement>}
           className="max-w-6xl mx-auto"
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
@@ -108,7 +112,7 @@ export default function Footer() {
               </a>
             </div>
           </div>
-        </motion.div>
+        </MotionDiv>
       </div>
     </footer>
   );
