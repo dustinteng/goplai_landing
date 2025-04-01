@@ -1,8 +1,16 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { Camera, Brain, Trophy } from "lucide-react";
+import { motion, type MotionProps } from "framer-motion";
+import React, { type HTMLAttributes } from "react";
+
+// Define a MotionDiv component that supports ref, HTML attributes, and MotionProps.
+const MotionDiv = motion.div as React.ForwardRefExoticComponent<
+  HTMLAttributes<HTMLDivElement> &
+    MotionProps &
+    React.RefAttributes<HTMLDivElement>
+>;
 
 export default function HowItWorksSection() {
   const [ref, inView] = useInView({
@@ -34,8 +42,8 @@ export default function HowItWorksSection() {
   return (
     <section className="w-full py-20 bg-white" id="how-it-works">
       <div className="container mx-auto px-4">
-        <motion.div
-          // className="text-center mb-16"
+        <MotionDiv
+          className="text-center mb-16"
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ duration: 0.5 }}
@@ -43,11 +51,11 @@ export default function HowItWorksSection() {
           <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-900">
             How It Works
           </h2>
-        </motion.div>
+        </MotionDiv>
 
-        <motion.div
+        <MotionDiv
           ref={ref}
-          // className="max-w-5xl mx-auto"
+          className="max-w-5xl mx-auto"
           initial={{ opacity: 0 }}
           animate={inView ? { opacity: 1 } : { opacity: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
@@ -58,9 +66,9 @@ export default function HowItWorksSection() {
 
             <div className="space-y-12 md:space-y-0 md:grid md:grid-cols-3 md:gap-8 relative z-10">
               {steps.map((step, index) => (
-                <motion.div
+                <MotionDiv
                   key={index}
-                  // className="relative"
+                  className="relative"
                   initial={{ opacity: 0, y: 30 }}
                   animate={
                     inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }
@@ -85,14 +93,14 @@ export default function HowItWorksSection() {
                   <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-full w-8 h-8 flex items-center justify-center border-2 border-gray-200 text-gray-700 font-bold hidden md:flex">
                     {index + 1}
                   </div>
-                </motion.div>
+                </MotionDiv>
               ))}
             </div>
           </div>
-        </motion.div>
+        </MotionDiv>
 
-        <motion.div
-          // className="text-center mt-16"
+        <MotionDiv
+          className="text-center mt-16"
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ duration: 0.5, delay: 0.8 }}
@@ -100,7 +108,7 @@ export default function HowItWorksSection() {
           <p className="text-xl font-medium text-gray-900">
             The future of amateur sports is here. Be part of it.
           </p>
-        </motion.div>
+        </MotionDiv>
       </div>
     </section>
   );
