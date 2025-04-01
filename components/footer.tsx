@@ -1,19 +1,36 @@
 "use client";
 
-import Image from "next/image";
+import { motion } from "framer-motion";
+import { useInView } from "react-intersection-observer";
 import { Instagram, Twitter, MessageCircle } from "lucide-react";
+import Image from "next/image";
+import type { MotionProps } from "framer-motion";
+import type { HTMLAttributes } from "react";
+import React from "react";
+
+// Create a MotionDiv component that supports ref, className, and motion props.
+const MotionDiv = motion.div as React.ForwardRefExoticComponent<
+  HTMLAttributes<HTMLDivElement> &
+    MotionProps &
+    React.RefAttributes<HTMLDivElement>
+>;
 
 export default function Footer() {
+  const [ref, inView] = useInView({
+    triggerOnce: true,
+    threshold: 0.1,
+  });
+
   const socialLinks = [
-    { name: "Instagram", icon: <Instagram className="h-5 w-5" />, href: "#" },
-    { name: "Twitter", icon: <Twitter className="h-5 w-5" />, href: "#" },
+    { name: "Instagram", icon: <Instagram className="h-6 w-6" />, href: "#" },
+    { name: "Twitter", icon: <Twitter className="h-6 w-6" />, href: "#" },
     {
       name: "TikTok",
       icon: (
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          width="20"
-          height="20"
+          width="24"
+          height="24"
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
@@ -32,23 +49,29 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="w-full py-12 bg-gray-900 text-white">
-      <div className="container mx-auto px-4">
-        <div className="max-w-6xl mx-auto">
+    <footer className="w-full bg-gray-900 text-white">
+      <div className="container mx-auto px-4 py-12">
+        <MotionDiv
+          ref={ref}
+          className="max-w-6xl mx-auto rounded-xl bg-gray-800 p-10 shadow-2xl"
+          initial={{ opacity: 0, y: 20 }}
+          animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          transition={{ duration: 0.5 }}
+        >
+          {/* Top Section */}
           <div className="flex flex-col md:flex-row justify-between items-center mb-8">
-            <div className="mb-6 md:mb-0">
-              <Image
+            <div className="flex flex-col items-center md:items-start mb-6 md:mb-0">
+              {/* <Image
                 src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-d5Ld4onfUnfHD3KYoQGV49vpo3tk9Y.png"
                 alt="GOPLAI Logo"
-                width={140}
+                width={70}
                 height={70}
                 className="mb-4"
-              />
-              <p className="text-gray-400 max-w-xs">
+              /> */}
+              <p className="text-gray-400 text-center md:text-left max-w-xs">
                 The first AI-powered sports community for amateur athletes.
               </p>
             </div>
-
             <div className="flex flex-col items-center md:items-end">
               <div className="flex space-x-4 mb-4">
                 {socialLinks.map((link, index) => (
@@ -62,9 +85,8 @@ export default function Footer() {
                   </a>
                 ))}
               </div>
-
               <div className="flex items-center text-gray-400">
-                <MessageCircle className="h-4 w-4 mr-2" />
+                <MessageCircle className="h-5 w-5 mr-2" />
                 <a
                   href="mailto:contact@goplai.com"
                   className="hover:text-white transition-colors duration-300"
@@ -75,11 +97,14 @@ export default function Footer() {
             </div>
           </div>
 
-          <div className="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center">
+          {/* Divider */}
+          <div className="border-t border-gray-700 pt-6"></div>
+
+          {/* Bottom Section */}
+          <div className="flex flex-col md:flex-row justify-between items-center mt-6">
             <p className="text-sm text-gray-500 mb-4 md:mb-0">
               &copy; {new Date().getFullYear()} GOPLAI. All rights reserved.
             </p>
-
             <div className="flex space-x-6">
               <a
                 href="#"
@@ -95,7 +120,7 @@ export default function Footer() {
               </a>
             </div>
           </div>
-        </div>
+        </MotionDiv>
       </div>
     </footer>
   );

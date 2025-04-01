@@ -45,13 +45,17 @@ export default function HeroSection() {
 
       {/* Content */}
       <div className="container mx-auto px-4 z-10 text-center">
+        {/* Small Header */}
+        <div className="text-sm md:text-base text-emerald-300 font-semibold tracking-wider uppercase mb-4">
+          The AI-Powered Sports Community for Everyone
+        </div>
         <div className="flex justify-center mb-8">
           <Image
             src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-d5Ld4onfUnfHD3KYoQGV49vpo3tk9Y.png"
             alt="GOPLAI Logo"
             width={240}
             height={120}
-            className="mb-6"
+            className="mb-6 rounded-xl "
           />
         </div>
 
