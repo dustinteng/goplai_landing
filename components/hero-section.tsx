@@ -4,10 +4,19 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import type { MotionProps } from "framer-motion";
+import type { HTMLAttributes } from "react";
 
-const MotionDiv = motion.div;
-const MotionH1 = motion.h1;
-const MotionP = motion.p;
+// ✅ Properly typed motion components
+const MotionDiv = motion.div as React.ComponentType<
+  HTMLAttributes<HTMLDivElement> & MotionProps
+>;
+const MotionH1 = motion.h1 as React.ComponentType<
+  HTMLAttributes<HTMLHeadingElement> & MotionProps
+>;
+const MotionP = motion.p as React.ComponentType<
+  HTMLAttributes<HTMLParagraphElement> & MotionProps
+>;
 
 export default function HeroSection() {
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
@@ -22,7 +31,7 @@ export default function HeroSection() {
           muted
           playsInline
           onLoadedData={() => setIsVideoLoaded(true)}
-          className={`object-cover w-full h-full opacity-40 transition-opacity duration-1000 ${
+          className={`object-cover w-full h-full transition-opacity duration-1000 ${
             isVideoLoaded ? "opacity-40" : "opacity-0"
           }`}
         >
@@ -47,7 +56,7 @@ export default function HeroSection() {
         </div>
 
         <MotionH1
-          // className="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight"
+          className="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
@@ -59,7 +68,7 @@ export default function HeroSection() {
         </MotionH1>
 
         <MotionP
-          // className="text-xl md:text-2xl text-gray-200 mb-8 max-w-3xl mx-auto"
+          className="text-xl md:text-2xl text-gray-200 mb-8 max-w-3xl mx-auto"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
@@ -89,33 +98,35 @@ export default function HeroSection() {
 
         {/* Mock UI Overlay */}
         <MotionDiv
-          // className="mt-16 relative max-w-4xl mx-auto"
+          className="mt-16 relative max-w-4xl mx-auto"
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.6 }}
         >
           <div className="bg-black/30 backdrop-blur-sm rounded-xl p-4 border border-white/10">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              {/* Game Stats */}
               <div className="bg-black/40 rounded-lg p-3 border border-emerald-500/30">
                 <h3 className="text-emerald-400 text-sm font-medium mb-2">
                   Game Stats
                 </h3>
                 <div className="space-y-2">
-                  <div className="flex justify-between">
-                    <span className="text-gray-300 text-xs">Goals</span>
-                    <span className="text-white font-bold text-xs">3</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-gray-300 text-xs">Assists</span>
-                    <span className="text-white font-bold text-xs">2</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-gray-300 text-xs">Pass Accuracy</span>
-                    <span className="text-white font-bold text-xs">87%</span>
-                  </div>
+                  {[
+                    ["Goals", "3"],
+                    ["Assists", "2"],
+                    ["Pass Accuracy", "87%"],
+                  ].map(([label, value]) => (
+                    <div className="flex justify-between" key={label}>
+                      <span className="text-gray-300 text-xs">{label}</span>
+                      <span className="text-white font-bold text-xs">
+                        {value}
+                      </span>
+                    </div>
+                  ))}
                 </div>
               </div>
 
+              {/* Highlights */}
               <div className="bg-black/40 rounded-lg p-3 border border-blue-500/30">
                 <h3 className="text-blue-400 text-sm font-medium mb-2">
                   Highlights
@@ -138,38 +149,30 @@ export default function HeroSection() {
                 </div>
               </div>
 
+              {/* Skill Ranking */}
               <div className="bg-black/40 rounded-lg p-3 border border-purple-500/30">
                 <h3 className="text-purple-400 text-sm font-medium mb-2">
                   Skill Ranking
                 </h3>
                 <div className="space-y-2">
-                  <div className="flex justify-between items-center">
-                    <span className="text-gray-300 text-xs">Speed</span>
-                    <div className="w-24 bg-gray-700 rounded-full h-1.5">
-                      <div
-                        className="bg-purple-500 h-1.5 rounded-full"
-                        style={{ width: "85%" }}
-                      ></div>
+                  {[
+                    ["Speed", "85%"],
+                    ["Accuracy", "70%"],
+                    ["Stamina", "90%"],
+                  ].map(([label, percent]) => (
+                    <div
+                      className="flex justify-between items-center"
+                      key={label}
+                    >
+                      <span className="text-gray-300 text-xs">{label}</span>
+                      <div className="w-24 bg-gray-700 rounded-full h-1.5">
+                        <div
+                          className="bg-purple-500 h-1.5 rounded-full"
+                          style={{ width: percent }}
+                        ></div>
+                      </div>
                     </div>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-gray-300 text-xs">Accuracy</span>
-                    <div className="w-24 bg-gray-700 rounded-full h-1.5">
-                      <div
-                        className="bg-purple-500 h-1.5 rounded-full"
-                        style={{ width: "70%" }}
-                      ></div>
-                    </div>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-gray-300 text-xs">Stamina</span>
-                    <div className="w-24 bg-gray-700 rounded-full h-1.5">
-                      <div
-                        className="bg-purple-500 h-1.5 rounded-full"
-                        style={{ width: "90%" }}
-                      ></div>
-                    </div>
-                  </div>
+                  ))}
                 </div>
               </div>
             </div>

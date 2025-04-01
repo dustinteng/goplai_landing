@@ -1,5 +1,6 @@
 "use client";
 
+import { forwardRef } from "react";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import {
@@ -9,6 +10,22 @@ import {
   Briefcase,
   Smartphone,
 } from "lucide-react";
+import type { MotionProps } from "framer-motion";
+import type { HTMLAttributes } from "react";
+
+// ✅ Type-safe MotionDiv using forwardRef
+const MotionDiv = forwardRef<
+  HTMLDivElement,
+  HTMLAttributes<HTMLDivElement> & MotionProps
+>((props, ref) => <motion.div ref={ref} {...props} />);
+MotionDiv.displayName = "MotionDiv";
+
+// ✅ Type-safe MotionH2 using forwardRef
+const MotionH2 = forwardRef<
+  HTMLHeadingElement,
+  HTMLAttributes<HTMLHeadingElement> & MotionProps
+>((props, ref) => <motion.h2 ref={ref} {...props} />);
+MotionH2.displayName = "MotionH2";
 
 export default function SolutionSection() {
   const [ref, inView] = useInView({
@@ -66,17 +83,17 @@ export default function SolutionSection() {
     <section className="w-full py-20 bg-gray-50" id="solution">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
-          <motion.h2
+          <MotionH2
             className="text-3xl md:text-4xl font-bold mb-4 text-gray-900"
             initial={{ opacity: 0, y: 20 }}
             animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ duration: 0.5 }}
           >
             The Solution
-          </motion.h2>
+          </MotionH2>
         </div>
 
-        <motion.div
+        <MotionDiv
           ref={ref}
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto"
           variants={containerVariants}
@@ -96,9 +113,9 @@ export default function SolutionSection() {
               <p className="text-gray-600">{feature.description}</p>
             </motion.div>
           ))}
-        </motion.div>
+        </MotionDiv>
 
-        <motion.div
+        <MotionDiv
           className="mt-16 text-center flex items-center justify-center gap-3"
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
@@ -108,7 +125,7 @@ export default function SolutionSection() {
           <p className="text-xl text-gray-700 font-medium">
             No fancy camera setup. Just your phone. AI does the rest.
           </p>
-        </motion.div>
+        </MotionDiv>
       </div>
     </section>
   );

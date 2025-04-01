@@ -2,6 +2,13 @@
 
 import { useInView } from "react-intersection-observer";
 import { motion } from "framer-motion";
+import type { MotionProps } from "framer-motion";
+import type { HTMLAttributes } from "react";
+
+// ✅ Type-safe motion.div with support for ref + className
+const MotionDiv = motion.div as React.ComponentType<
+  HTMLAttributes<HTMLDivElement> & MotionProps
+>;
 
 export default function ProblemSection() {
   const [ref, inView] = useInView({
@@ -12,9 +19,9 @@ export default function ProblemSection() {
   return (
     <section className="w-full py-20 bg-white" id="problem">
       <div className="container mx-auto px-4">
-        <motion.div
+        <MotionDiv
           ref={ref}
-          // className="max-w-4xl mx-auto text-center"
+          className="max-w-4xl mx-auto text-center"
           initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : undefined}
           transition={{ duration: 0.6 }}
@@ -40,7 +47,7 @@ export default function ProblemSection() {
             "If you&apos;ve ever wanted your own ESPN highlight reel, this is
             the easiest money you&apos;ll ever spend."
           </p>
-        </motion.div>
+        </MotionDiv>
       </div>
     </section>
   );

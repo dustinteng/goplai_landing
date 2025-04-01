@@ -1,7 +1,7 @@
 "use client";
 
 import type React from "react";
-import { useState } from "react";
+import { forwardRef, useState } from "react";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { Button } from "@/components/ui/button";
@@ -16,7 +16,16 @@ import {
 } from "@/components/ui/select";
 import { toast, Toaster } from "sonner";
 import { collection, addDoc } from "firebase/firestore";
-import { db } from "@/lib/firebaseConfig"; // ensure this path is correct
+import { db } from "@/lib/firebaseConfig";
+import type { HTMLAttributes } from "react";
+import type { MotionProps } from "framer-motion";
+
+// ✅ Safe MotionDiv wrapper with ref/className/props support
+const MotionDiv = forwardRef<
+  HTMLDivElement,
+  HTMLAttributes<HTMLDivElement> & MotionProps
+>((props, ref) => <motion.div ref={ref} {...props} />);
+MotionDiv.displayName = "MotionDiv";
 
 export default function SignUpSection() {
   const [ref, inView] = useInView({
@@ -47,10 +56,8 @@ export default function SignUpSection() {
     setIsSubmitting(true);
 
     try {
-      // Save the form data to Cloud Firestore
       await addDoc(collection(db, "signups"), formData);
 
-      // Use a string for the toast message
       toast(
         "You're on the list! Thank you for signing up for early access to GOPLAI."
       );
@@ -95,9 +102,9 @@ export default function SignUpSection() {
       id="signup"
     >
       <div className="container mx-auto px-4">
-        <motion.div
+        <MotionDiv
           ref={ref}
-          // className="max-w-2xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden"
+          className="max-w-2xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden"
           initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 0.6 }}
@@ -194,7 +201,7 @@ export default function SignUpSection() {
               </p>
             </div>
           </div>
-        </motion.div>
+        </MotionDiv>
       </div>
       <Toaster />
     </section>

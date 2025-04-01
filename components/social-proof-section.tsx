@@ -1,8 +1,18 @@
 "use client";
 
+import { forwardRef } from "react";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import Image from "next/image";
+import type { MotionProps } from "framer-motion";
+import type { HTMLAttributes } from "react";
+
+// ✅ Type-safe MotionDiv using forwardRef
+const MotionDiv = forwardRef<
+  HTMLDivElement,
+  HTMLAttributes<HTMLDivElement> & MotionProps
+>((props, ref) => <motion.div ref={ref} {...props} />);
+MotionDiv.displayName = "MotionDiv";
 
 export default function SocialProofSection() {
   const [ref, inView] = useInView({
@@ -10,7 +20,6 @@ export default function SocialProofSection() {
     threshold: 0.1,
   });
 
-  // Placeholder logos for trusted partners
   const logos = [
     { name: "Sports League 1", src: "/placeholder.svg?height=60&width=120" },
     { name: "Sports Tech 2", src: "/placeholder.svg?height=60&width=120" },
@@ -21,7 +30,7 @@ export default function SocialProofSection() {
   return (
     <section className="w-full py-16 bg-white">
       <div className="container mx-auto px-4">
-        <motion.div
+        <MotionDiv
           ref={ref}
           className="max-w-5xl mx-auto"
           initial={{ opacity: 0, y: 20 }}
@@ -41,7 +50,7 @@ export default function SocialProofSection() {
                 transition={{ duration: 0.5, delay: 0.1 * index }}
               >
                 <Image
-                  src={logo.src || "/placeholder.svg"}
+                  src={logo.src}
                   alt={logo.name}
                   width={120}
                   height={60}
@@ -74,7 +83,7 @@ export default function SocialProofSection() {
               </div>
             </div>
           </div>
-        </motion.div>
+        </MotionDiv>
       </div>
     </section>
   );
