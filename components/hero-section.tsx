@@ -3,7 +3,13 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion, HTMLMotionProps } from "framer-motion";
+import React from "react";
+
+// Create typed motion components for HTML elements
+const MotionH1: React.FC<HTMLMotionProps<"h1">> = motion.h1;
+const MotionP: React.FC<HTMLMotionProps<"p">> = motion.p;
+const MotionDiv: React.FC<HTMLMotionProps<"div">> = motion.div;
 
 export default function HeroSection() {
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
@@ -42,7 +48,7 @@ export default function HeroSection() {
           />
         </div>
 
-        <motion.h1
+        <MotionH1
           className="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -52,9 +58,9 @@ export default function HeroSection() {
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-blue-500">
             Your Reputation.
           </span>
-        </motion.h1>
+        </MotionH1>
 
-        <motion.p
+        <MotionP
           className="text-xl md:text-2xl text-gray-200 mb-8 max-w-3xl mx-auto"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -63,9 +69,9 @@ export default function HeroSection() {
           GOPLAI is the first AI-powered sports community for amateur athletes.
           Track your performance, prove your skill, and relive every game with
           AI-powered highlights.
-        </motion.p>
+        </MotionP>
 
-        <motion.div
+        <MotionDiv
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.4 }}
@@ -81,10 +87,10 @@ export default function HeroSection() {
           >
             Sign Up for Early Access!
           </Button>
-        </motion.div>
+        </MotionDiv>
 
         {/* Mock UI Overlay */}
-        <motion.div
+        <MotionDiv
           className="mt-16 relative max-w-4xl mx-auto"
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
@@ -170,7 +176,7 @@ export default function HeroSection() {
               </div>
             </div>
           </div>
-        </motion.div>
+        </MotionDiv>
       </div>
     </section>
   );
