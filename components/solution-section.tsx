@@ -27,6 +27,12 @@ const MotionH2 = forwardRef<
 >((props, ref) => <motion.h2 ref={ref} {...props} />);
 MotionH2.displayName = "MotionH2";
 
+const MotionCard = forwardRef<
+  HTMLDivElement,
+  HTMLAttributes<HTMLDivElement> & MotionProps
+>((props, ref) => <motion.div ref={ref} {...props} />);
+MotionCard.displayName = "MotionCard";
+
 export default function SolutionSection() {
   const [ref, inView] = useInView({
     triggerOnce: true,
@@ -101,7 +107,7 @@ export default function SolutionSection() {
           animate={inView ? "visible" : "hidden"}
         >
           {features.map((feature, index) => (
-            <motion.div
+            <MotionCard
               key={index}
               className="bg-white rounded-xl shadow-md p-6 text-center hover:shadow-lg transition-shadow duration-300"
               variants={itemVariants}
@@ -111,7 +117,7 @@ export default function SolutionSection() {
                 {feature.title}
               </h3>
               <p className="text-gray-600">{feature.description}</p>
-            </motion.div>
+            </MotionCard>
           ))}
         </MotionDiv>
 
