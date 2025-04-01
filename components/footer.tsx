@@ -1,20 +1,9 @@
 "use client";
 
-import React from "react";
-import { motion, HTMLMotionProps } from "framer-motion";
-import { useInView } from "react-intersection-observer";
-import { Instagram, Twitter, MessageCircle } from "lucide-react";
 import Image from "next/image";
-
-// Create a typed MotionDiv so it accepts all standard div props like className
-const MotionDiv: React.FC<HTMLMotionProps<"div">> = motion.div;
+import { Instagram, Twitter, MessageCircle } from "lucide-react";
 
 export default function Footer() {
-  const [ref, inView] = useInView({
-    triggerOnce: true,
-    threshold: 0.1,
-  });
-
   const socialLinks = [
     { name: "Instagram", icon: <Instagram className="h-5 w-5" />, href: "#" },
     { name: "Twitter", icon: <Twitter className="h-5 w-5" />, href: "#" },
@@ -45,13 +34,7 @@ export default function Footer() {
   return (
     <footer className="w-full py-12 bg-gray-900 text-white">
       <div className="container mx-auto px-4">
-        <MotionDiv
-          ref={ref as React.Ref<HTMLDivElement>}
-          className="max-w-6xl mx-auto"
-          initial={{ opacity: 0, y: 20 }}
-          animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ duration: 0.5 }}
-        >
+        <div className="max-w-6xl mx-auto">
           <div className="flex flex-col md:flex-row justify-between items-center mb-8">
             <div className="mb-6 md:mb-0">
               <Image
@@ -112,7 +95,7 @@ export default function Footer() {
               </a>
             </div>
           </div>
-        </MotionDiv>
+        </div>
       </div>
     </footer>
   );
