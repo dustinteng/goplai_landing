@@ -1,7 +1,6 @@
 "use client";
 
 import type React from "react";
-
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
@@ -16,6 +15,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { toast, Toaster } from "sonner";
+import { collection, addDoc } from "firebase/firestore";
+import { db } from "@/lib/firebaseConfig"; // ensure this path is correct
 
 export default function SignUpSection() {
   const [ref, inView] = useInView({
@@ -45,21 +46,27 @@ export default function SignUpSection() {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 1500));
+    try {
+      // Save the form data to Cloud Firestore
+      await addDoc(collection(db, "signups"), formData);
 
-    toast({
-      title: "You're on the list!",
-      description: "Thank you for signing up for early access to GOPLAI.",
-    });
+      // Use a string for the toast message
+      toast(
+        "You're on the list! Thank you for signing up for early access to GOPLAI."
+      );
 
-    setIsSubmitting(false);
-    setFormData({
-      name: "",
-      email: "",
-      sport: "",
-      experienceLevel: "",
-    });
+      setFormData({
+        name: "",
+        email: "",
+        sport: "",
+        experienceLevel: "",
+      });
+    } catch (error) {
+      console.error("Error saving to Firebase:", error);
+      toast("Error: Failed to sign up. Please try again later.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const sports = [
