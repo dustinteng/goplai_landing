@@ -4,10 +4,13 @@ import { useInView } from "react-intersection-observer";
 import { motion } from "framer-motion";
 import type { MotionProps } from "framer-motion";
 import type { HTMLAttributes } from "react";
+import React from "react";
 
-// ✅ Type-safe motion.div with support for ref + className
-const MotionDiv = motion.div as React.ComponentType<
-  HTMLAttributes<HTMLDivElement> & MotionProps
+// Create a MotionDiv component that supports ref, className, and motion props.
+const MotionDiv = motion.div as React.ForwardRefExoticComponent<
+  HTMLAttributes<HTMLDivElement> &
+    MotionProps &
+    React.RefAttributes<HTMLDivElement>
 >;
 
 export default function ProblemSection() {
@@ -39,13 +42,13 @@ export default function ProblemSection() {
           <div className="bg-gradient-to-r from-emerald-50 to-blue-50 p-6 md:p-8 rounded-xl mb-10">
             <p className="text-lg md:text-xl font-medium text-gray-800 mb-4">
               No more forgotten wins. <br className="hidden md:block" />
-              No more &apos;trust me, I scored 3 goals.&apos;
+              No more 'trust me, I scored 3 goals.'
             </p>
           </div>
 
           <p className="text-lg md:text-xl font-semibold text-gray-900 italic">
-            "If you&apos;ve ever wanted your own ESPN highlight reel, this is
-            the easiest money you&apos;ll ever spend."
+            "If you've ever wanted your own ESPN highlight reel, this is the
+            easiest money you'll ever spend."
           </p>
         </MotionDiv>
       </div>
