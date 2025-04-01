@@ -14,7 +14,7 @@ export default function ProblemSection() {
       <div className="container mx-auto px-4">
         <motion.div
           ref={ref}
-          className="max-w-4xl mx-auto text-center"
+          // className="max-w-4xl mx-auto text-center"
           initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : undefined}
           transition={{ duration: 0.6 }}

@@ -3,13 +3,11 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
-import { motion, HTMLMotionProps } from "framer-motion";
-import React from "react";
+import { motion } from "framer-motion";
 
-// Create typed motion components for HTML elements
-const MotionH1: React.FC<HTMLMotionProps<"h1">> = motion.h1;
-const MotionP: React.FC<HTMLMotionProps<"p">> = motion.p;
-const MotionDiv: React.FC<HTMLMotionProps<"div">> = motion.div;
+const MotionDiv = motion.div;
+const MotionH1 = motion.h1;
+const MotionP = motion.p;
 
 export default function HeroSection() {
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
@@ -49,7 +47,7 @@ export default function HeroSection() {
         </div>
 
         <MotionH1
-          className="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight"
+          // className="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
@@ -61,7 +59,7 @@ export default function HeroSection() {
         </MotionH1>
 
         <MotionP
-          className="text-xl md:text-2xl text-gray-200 mb-8 max-w-3xl mx-auto"
+          // className="text-xl md:text-2xl text-gray-200 mb-8 max-w-3xl mx-auto"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
@@ -91,7 +89,7 @@ export default function HeroSection() {
 
         {/* Mock UI Overlay */}
         <MotionDiv
-          className="mt-16 relative max-w-4xl mx-auto"
+          // className="mt-16 relative max-w-4xl mx-auto"
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.6 }}

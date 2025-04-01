@@ -97,7 +97,7 @@ export default function SignUpSection() {
       <div className="container mx-auto px-4">
         <motion.div
           ref={ref}
-          className="max-w-2xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden"
+          // className="max-w-2xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden"
           initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 0.6 }}

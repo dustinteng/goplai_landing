@@ -35,7 +35,7 @@ export default function HowItWorksSection() {
     <section className="w-full py-20 bg-white" id="how-it-works">
       <div className="container mx-auto px-4">
         <motion.div
-          className="text-center mb-16"
+          // className="text-center mb-16"
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ duration: 0.5 }}
@@ -47,7 +47,7 @@ export default function HowItWorksSection() {
 
         <motion.div
           ref={ref}
-          className="max-w-5xl mx-auto"
+          // className="max-w-5xl mx-auto"
           initial={{ opacity: 0 }}
           animate={inView ? { opacity: 1 } : { opacity: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
@@ -60,7 +60,7 @@ export default function HowItWorksSection() {
               {steps.map((step, index) => (
                 <motion.div
                   key={index}
-                  className="relative"
+                  // className="relative"
                   initial={{ opacity: 0, y: 30 }}
                   animate={
                     inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }
@@ -92,7 +92,7 @@ export default function HowItWorksSection() {
         </motion.div>
 
         <motion.div
-          className="text-center mt-16"
+          // className="text-center mt-16"
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ duration: 0.5, delay: 0.8 }}
