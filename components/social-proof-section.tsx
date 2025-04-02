@@ -61,22 +61,6 @@ export default function SocialProofSection() {
               </motion.div>
             ))}
           </div>
-
-          {/* Video Section */}
-          <div className="mt-16 bg-gray-50 rounded-xl p-6 md:p-8">
-            <div className="aspect-video relative rounded-lg overflow-hidden">
-              <video
-                className="absolute inset-0 w-full h-full object-cover"
-                autoPlay
-                muted
-                loop
-                playsInline
-              >
-                <source src="/video/demo.mp4" type="video/mp4" />
-                Your browser does not support the video tag.
-              </video>
-            </div>
-          </div>
         </MotionDiv>
       </div>
     </section>
