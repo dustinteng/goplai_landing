@@ -43,7 +43,7 @@ export default function SocialProofSection() {
           </div>
 
           {/* Logos */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 items-center justify-items-center opacity-70">
+          <div className="flex flex-wrap justify-center items-center gap-25 opacity-70 ">
             {logos.map((logo, index) => (
               <motion.div
                 key={index}
