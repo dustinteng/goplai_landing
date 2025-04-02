@@ -23,8 +23,8 @@ export default function SocialProofSection() {
   const logos = [
     { name: "UCB", src: "/ucb.svg" },
     { name: "Sports Tech 2", src: "/imsport.jpg" },
-    { name: "Partner 3", src: "/brewery.png" },
-    { name: "Partner 4", src: "/calfc.png" },
+    // { name: "Partner 3", src: "/brewery.png" },
+    // { name: "Partner 4", src: "/calfc.png" },
   ];
 
   return (
